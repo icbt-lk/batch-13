@@ -35,7 +35,7 @@
                         + "<th>Name</th>"
                         + "</tr></thead>");
                 out.print("<tbody>");
-                for(Student st : utils.getStudent()) {
+                for(Student st : utils.getStudents()) {
                     out.print("<tr>");
                     out.print("<td>" + st.getId() + "</td>");
                     out.print("<td>" + st.getName() + "</td>");
