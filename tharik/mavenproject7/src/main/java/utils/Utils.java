@@ -4,6 +4,11 @@
  */
 package utils;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,17 +17,26 @@ import java.util.List;
  * @author hd
  */
 public class Utils {
-    public String getText() {
-        return "Test12355ddd55";
-    }
     
-    public List<Student> getStudent() {
+    static final String DB_URL = "jdbc:mysql://localhost/batch13";
+    static final String USER = "root";
+    static final String PASS = "";
+      
+    public List<Student> getStudents() {
         List<Student> students = new ArrayList<>();
-        
-        students.add(new Student(1, "John Smith"));
-        students.add(new Student(2, "George Whey"));
-        students.add(new Student(3, "Andrew Clark"));
-        
+        try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT * FROM students");
+        ) {		      
+                while(rs.next()){
+                Student st = new Student();
+                st.setId(rs.getInt("id"));
+                st.setName(rs.getString("name"));
+                students.add(st);
+         }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }   
         return students;
     }
 }
