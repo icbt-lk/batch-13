@@ -24,6 +24,10 @@ public class Utils {
       
     public List<Student> getStudents() {
         List<Student> students = new ArrayList<>();
+        
+// For Java 8 following need to be uncommented and handle error
+//         DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+        
         try(Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery("SELECT * FROM students");
